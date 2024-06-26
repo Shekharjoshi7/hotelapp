@@ -18,6 +18,8 @@ public class CustomerEntity {
     private String name;
     private String contact;
     private String gender;
+
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
     private String password;
 }
