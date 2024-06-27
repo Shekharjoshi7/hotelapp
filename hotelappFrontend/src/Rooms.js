@@ -25,7 +25,6 @@ const Rooms = () => {
 
     }, []);
 
-    console.log(products)
     return (
         <div>
             {isLoading ? (

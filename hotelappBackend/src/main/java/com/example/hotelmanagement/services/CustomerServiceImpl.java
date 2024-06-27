@@ -100,7 +100,14 @@ public class CustomerServiceImpl implements CustomerService {
             BeanUtils.copyProperties(custOpt.get(), customer);
             return customer;
         } else {
-            return null;  // Return null or throw an exception if not found
+            Customer cust = new Customer();
+            cust.setCustomerId(null);
+            cust.setName(null);
+            cust.setContact(null);
+            cust.setGender(null);
+            cust.setEmail(null);
+            cust.setPassword(null);
+            return cust;  // Return null or throw an exception if not found
         }
     }
 }
