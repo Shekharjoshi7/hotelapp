@@ -1,7 +1,7 @@
 import React from 'react'
 import {Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = (props) => {
   return (
     <div>
       <nav className="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
@@ -19,7 +19,7 @@ const Navbar = () => {
 			</ul>
 		</div>
 		<div className="order-2 md:order-3">
-			<Link to="/Login">
+			{!props.isLogin&&<Link to="/Login">
 			<button  className="px-4 py-2 bg-indigo-500 hover:bg-indigo-600 text-gray-50 rounded-xl flex items-center gap-2">
             
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -27,7 +27,7 @@ const Navbar = () => {
                 </svg>
                 <span>Login</span>
             </button>
-			</Link>
+			</Link>}
 		</div>
 	</div>
 </nav>

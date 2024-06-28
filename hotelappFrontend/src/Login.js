@@ -4,11 +4,11 @@ import {Link,useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = () => {
+const Login = (props) => {
+
     const navigate = useNavigate();
     const [email ,setEmail]=useState();
     const [password ,setPassword]=useState();
-    const [isLogin ,setIsLogin]=useState(false);
     let data;
     const handleChange = (e) => {
         if(e.target.name === "email"){
@@ -42,7 +42,7 @@ const Login = () => {
             else{
 
                 if( password === data.password){
-                       setIsLogin(true);
+                       props.setIsLogin(true);
                        toast.success('You are successfully logged in', {
                            position: "top-left",
                            autoClose: 3000,
