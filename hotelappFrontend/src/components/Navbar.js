@@ -3,8 +3,8 @@ import {Link } from "react-router-dom";
 
 const Navbar = (props) => {
   return (
-    <div>
-      <nav className="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto">
+    <div className='sticky top-0 z-10'>
+      <nav className="bg-gray-200 shadow shadow-gray-300 w-100 px-8 md:px-auto   w-full">
 	<div className="md:h-16 h-28 mx-auto md:px-4 container flex items-center justify-between flex-wrap md:flex-nowrap">
 		<div className="text-indigo-500 md:order-1">
 			
@@ -12,10 +12,10 @@ const Navbar = (props) => {
 		<div className="text-gray-500 order-3 w-full md:w-auto md:order-2">
 			<ul className="flex font-semibold justify-between">
               
-				<li className="md:px-4 md:py-2 text-indigo-500"><Link to="/">Home</Link></li>
-				<li className="md:px-4 md:py-2 hover:text-indigo-400"><Link to="/About">About</Link></li>
-				<li className="md:px-4 md:py-2 hover:text-indigo-400"><Link to="/Rooms">Rooms</Link></li>
-				<li className="md:px-4 md:py-2 hover:text-indigo-400"><Link to="/Contact">Contact</Link></li>
+				<li className="md:px-4 md:py-2"><Link className=' active:text-indigo-400 hover:text-indigo-400' to="/">Home</Link></li>
+				<li className="md:px-4 md:py-2"><Link className=' active:text-indigo-400 hover:text-indigo-400' to="/About">About</Link></li>
+				<li className="md:px-4 md:py-2"><Link className=' active:text-indigo-400 hover:text-indigo-400' to="/Rooms">Rooms</Link></li>
+				<li className="md:px-4 md:py-2"><Link className=' active:text-indigo-400 hover:text-indigo-400' to="/Contact">Contact</Link></li>
 			</ul>
 		</div>
 		<div className="order-2 md:order-3">
