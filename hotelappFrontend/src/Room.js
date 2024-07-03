@@ -35,7 +35,7 @@ const Room = (props) => {
       });
       up = await up.text();
       console.log(up);
-      navigate("/Book");
+      navigate(`/Book/${id}`);
     } else {
       navigate("/Login");
     }

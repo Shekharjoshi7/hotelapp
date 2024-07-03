@@ -1,17 +1,19 @@
 import React,{useState,useEffect} from 'react'
+import {  useParams} from "react-router-dom";
 
 const Book = ({ diffDays ,checkInDate ,checkOutDate}) => {
     const [products, setProducts] = useState([]);
+    const { id } = useParams();
     useEffect(() => {
         const fetchRooms = async () => {
-                const response = await fetch("http://localhost:8080/getSingleRoom/101");
+                const response = await fetch(`http://localhost:8080/getSingleRoom/${id}`);
                 const data = await response.json();
                 setProducts(data);
         };
 
         fetchRooms();
 
-    }, []);
+    }, [id]);
  
   return (
     <section className="text-gray-600 body-font overflow-hidden h-screen">

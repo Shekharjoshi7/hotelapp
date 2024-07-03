@@ -39,7 +39,7 @@ function App() {
           isLogin={isLogin}
           customerId={customerId}  />}/>
 
-          <Route path="/Book" element={ <Book    diffDays={diffDays}checkInDate={checkInDate} checkOutDate={checkOutDate} />}/>
+          <Route path="/Book/:id" element={ <Book    diffDays={diffDays}checkInDate={checkInDate} checkOutDate={checkOutDate} />}/>
           <Route path="/Login" element={<Login setIsLogin ={setIsLogin} setCustomerId={setCustomerId} />}/>
           <Route path="/Signup" element={<Signup/>}/>
           <Route path="/" element={<Home/>} />
