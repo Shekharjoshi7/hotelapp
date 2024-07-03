@@ -1,32 +1,50 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React,{useState} from 'react'
-import {Link,useNavigate } from "react-router-dom";
+import React, { useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Login = (props) => {
+const Login = ({ setIsLogin, setCustomerId }) => {
 
     const navigate = useNavigate();
-    const [email ,setEmail]=useState();
-    const [password ,setPassword]=useState();
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
     let data;
     const handleChange = (e) => {
-        if(e.target.name === "email"){
+        if (e.target.name === "email") {
             setEmail(e.target.value)
         }
-        else if(e.target.name === "password"){
+        else if (e.target.name === "password") {
             setPassword(e.target.value)
         }
     }
-    
-    
-    const handleClick=async(e)=>{
-          e.preventDefault(); 
-         data = await fetch(`http://localhost:8080/getCustomerByEmail/${email}`)
-         data = await data.json();
-         if(data.email==null)
-            {
-                toast.error("Email doesn't exist", {
+
+
+    const handleClick = async (e) => {
+        e.preventDefault();
+        data = await fetch(`http://localhost:8080/getCustomerByEmail/${email}`)
+        data = await data.json();
+        if (data.email == null) {
+            toast.error("Email doesn't exist", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            });
+
+        }
+        else {
+
+            if (password === data.password) {
+                setIsLogin(true);
+                setCustomerId(data.customerId);
+                console.log(data.customerId)
+                toast.success('You are successfully logged in', {
                     position: "top-left",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -37,64 +55,47 @@ const Login = (props) => {
                     theme: "light",
                     transition: Bounce,
                 });
-
+                setEmail('')
+                setPassword('')
+                setTimeout(() => {
+                    navigate("/Rooms");
+                }, 2000);
             }
-            else{
-
-                if( password === data.password){
-                       props.setIsLogin(true);
-                       toast.success('You are successfully logged in', {
-                           position: "top-left",
-                           autoClose: 3000,
-                           hideProgressBar: false,
-                           closeOnClick: true,
-                           pauseOnHover: true,
-                           draggable: true,
-                           progress: undefined,
-                           theme: "light",
-                           transition: Bounce,
-                       });
-                   setEmail('')
-                   setPassword('')
-                   setTimeout(() => {
-                       navigate("/Rooms");
-                   }, 2000);
-                }
-                else{
-                    toast.error('Incorrect Password!', {
-                        position: "top-left",
-                        autoClose: 3000,
-                        hideProgressBar: false,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "light",
-                        transition: Bounce,
-                    });
-                }
+            else {
+                toast.error('Incorrect Password!', {
+                    position: "top-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                });
             }
-     
-            
-         }
-    
+        }
+
+
+    }
+
 
     return (
         <div>
-           <section className="bg-gray-50 dark:bg-gray-900">
-           <ToastContainer
-                position="top-left"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                theme="light"
-                transition="Bounce"
-            />
+            <section className="bg-gray-50 dark:bg-gray-900">
+                <ToastContainer
+                    position="top-left"
+                    autoClose={3000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                    transition="Bounce"
+                />
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
 
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -112,13 +113,14 @@ const Login = (props) => {
                                     <input onChange={handleChange} value={password} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="" />
                                 </div>
                                 <div className="flex items-center justify-end">
-                                    
-                                    <a href="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
+
+                                    <Link to="#" className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</Link>
                                 </div>
                                 <button type="submit" className="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet? <Link to="/Signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500"  >Sign up</Link>
+                                    Don’t have an account yet? <Link to="/Signup" className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
                                 </p>
+
                             </form>
                         </div>
                     </div>
